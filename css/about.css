@@ -1,0 +1,150 @@
+a {
+  color: #111;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.7em;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+}
+header {
+  padding: var(--spacing);
+  background: #fff;
+  height:auto;
+}
+nav  {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing);
+  width: 100%;
+}
+ul a, ul span {
+  font-weight: 700;
+  background-image: linear-gradient(0deg, #111, #111);
+  background-repeat: no-repeat;
+  background-size: 0 2px;
+  padding-bottom: 10px;
+  background-position: 50% bottom;
+}
+
+ul a:hover, 
+ul span:hover, 
+.controls span:hover,
+.controls span:hover,
+.search:focus {
+  background-size: 100% 2px;
+  background-image: linear-gradient(0deg, var(--accent), var(--accent));
+}
+nav span {cursor: pointer;}
+
+.brand {
+  text-transform: capitalize;
+  font-size: 1.2em;
+  padding: 15px;
+}
+nav li {
+  display: inline-block;
+  margin: 0 0.7em;
+}
+
+  
+  body {
+    margin: 0;
+    font-family: Helvetica, sans-serif;
+    text-align: center;
+  }
+  
+     
+     h2{ font-family: Arial, Helvetica, sans-serif;
+    text-size-adjust: 10px;
+  margin: 10px o;}
+ 
+
+    footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
+    
+
+@media screen and (max-width: 1000px)
+{
+  a {
+    color: #111;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.7em;
+    letter-spacing: 1px;
+    transition: 0.3s;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+  }
+  header {
+    padding: var(--spacing);
+    background: #fff;
+    height:auto;
+  }
+  nav  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing);
+    width: 100%;
+  }
+  ul a, ul span {
+    font-weight: 700;
+    background-image: linear-gradient(0deg, #111, #111);
+    background-repeat: no-repeat;
+    background-size: 0 2px;
+    padding-bottom: 10px;
+    background-position: 50% bottom;
+  }
+  
+  ul a:hover, 
+  ul span:hover, 
+  .controls span:hover,
+  .controls span:hover,
+  .search:focus {
+    background-size: 100% 2px;
+    background-image: linear-gradient(0deg, var(--accent), var(--accent));
+  }
+  nav span {cursor: pointer;}
+  
+  .brand {
+    text-transform: capitalize;
+    font-size: 1.2em;
+    padding: 15px;
+  }
+  nav li {
+    display: inline-block;
+    margin: 0 0.7em;
+  }
+  footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    
+    bottom: 0;
+    width: 100%;
+}
+
+}
+
+        
