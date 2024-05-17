@@ -1,63 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Document metadata -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Document title -->
     <title>Get in touch</title>
-    <!-- Link to external CSS file -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link rel="stylesheet" href="css/contact.css"/>      
-    <!-- Link to external JavaScript file -->
     <script src="js/script.js"></script>
 </head>
 <body>
-    <!-- Placeholder for header content -->
-    <div id="header-placeholder"></div>
-    
-    <!-- Main content container -->
+    <header>
+        <nav>
+            <a href="index.html" class="brand">Larami</a>
+            <ul class="menu">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="finalproj.html">Product</a></li>
+              <li><a href="aboutus.html">About</a></li>
+              <li><a href="Contact.html">Contact</a></li>
+            </ul>
+            <button class="menu-btn">
+              <span class="material-icons-outlined">segment</span>
+            </button>
+        </nav>
+    </header>
+
     <div class="container">
         <h1>Get In Touch</h1>
-        <p>We are eager to respond promptly to your inquiries and provide valuable assistance <br>
-            to ensure your success. Please don't hesitate to reach out to us as we genuinely welcome <br>
-            the opportunity to connect and support you in achieving your goals</p>
+        <p>We are eager to respond promptly to your inquiries and provide valuable assistance to ensure your success. Please don't hesitate to reach out to us as we genuinely welcome the opportunity to connect and support you in achieving your goals.</p>
         
-        <!-- Contact form section -->
         <div class="contact-box">
             <div class="contact-left">
                 <h3>Send a request</h3>
-                <!-- Contact form -->
-                <form>
+                <form action="contact.php" method="POST">
                     <div class="input-row">
                         <div class="input-group">
-                            <label>Name</label>
-                            <input type="text" placeholder="John Komatsu">   
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" placeholder="John Komatsu" required>   
                         </div>
                         <div class="input-group">
-                            <label>Phone</label>
-                            <input type="text" placeholder="+1 694 206 9420">   
+                            <label for="phone">Phone</label>
+                            <input type="text" name="phone" id="phone" placeholder="+1 694 206 9420" required>   
                         </div>
                     </div>
                     <div class="input-row">
                         <div class="input-group">
-                            <label>Email</label>
-                            <input type="email" placeholder="johnkomatsu69420@gmail.com">   
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" placeholder="johnkomatsu69420@gmail.com" required>   
                         </div>
                         <div class="input-group">
-                            <label>Subject</label>
-                            <input type="email" placeholder="Product Feedback">   
+                            <label for="subject">Subject</label>
+                            <input type="text" name="subject" id="subject" placeholder="Product Feedback" required>   
                         </div>
                     </div>
-                    <label>Message</label>
-                    <textarea rows="5" placeholder="Your Message"></textarea>
-                    <button type="submit"> Send</button>
+                    <label for="message">Message</label>
+                    <textarea rows="5" name="message" id="message" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send</button>
                 </form>
             </div>
-            
-            <!-- Contact information section -->
             <div class="contact-right">
                 <h3>Reach Us</h3>
-                <!-- Contact information table -->
                 <table>
                     <tr>
                         <td>Email</td>
@@ -69,18 +70,63 @@
                     </tr>
                     <tr>
                         <td>Address</td>
-                        <td>#1 Georgina Dr, Building C, Barrie, <br>
-                        CA L4M 1E9<br></td>
+                        <td>#1 Georgina Dr, Building C, Barrie, <br>CA L4M 1E9</td>
                     </tr>
                 </table>
             </div>  
         </div>
     </div>
-    
-    <!-- Placeholder for footer content -->
-    <div id="footer-placeholder"></div>
-    
-    <!-- Link to external JavaScript file -->
-    <script src="js/script.js"></script>
+    <ul class="social">
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="#">Instagram</a></li>
+    </ul>
+    <script src="main.js"></script>
 </body>
 </html>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = filter_var(trim($_POST['name']), FILTER_SANITIZE_STRING);
+    $phone = filter_var(trim($_POST['phone']), FILTER_SANITIZE_STRING);
+    $email = filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL);
+    $subject = filter_var(trim($_POST['subject']), FILTER_SANITIZE_STRING);
+    $message = filter_var(trim($_POST['message']), FILTER_SANITIZE_STRING);
+
+    if ($email === false) {
+        echo "Invalid email address.";
+        exit;
+    }
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "form_db";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "INSERT INTO contacts (name, phone, email, subject, message) VALUES (?, ?, ?, ?, ?)";
+    
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param("sssss", $name, $phone, $email, $subject, $message);
+        
+        if ($stmt->execute()) {
+            echo "Message sent successfully";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        
+        $stmt->close();
+    } else {
+        echo "Error preparing statement: " . $conn->error;
+    }
+
+    $conn->close();
+} else {
+    echo "Form submission method not allowed";
+}
+?>
